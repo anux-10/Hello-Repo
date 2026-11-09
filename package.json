@@ -1,0 +1,14 @@
+{
+  "name": "jenkins-demo",
+  "version": "1.0.0",
+  "description": "A tiny project for testing Jenkins pipelines",
+  "private": true,
+  "main": "src/calculator.js",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\"",
+    "test:ci": "node scripts/test-ci.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,8 @@
+* text=auto
+
+# Binary assets must not be line-ending converted
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary

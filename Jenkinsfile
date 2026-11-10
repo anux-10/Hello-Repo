@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18-alpine'
+        }
+    }
 
     options {
         timestamps()
@@ -13,25 +17,13 @@ pipeline {
     stages {
         stage('Install') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'npm install'
-                    } else {
-                        bat 'npm install'
-                    }
-                }
+                sh 'npm install'
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'npm run test:ci'
-                    } else {
-                        bat 'npm run test:ci'
-                    }
-                }
+                sh 'npm run test:ci'
             }
             post {
                 always {

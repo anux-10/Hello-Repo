@@ -3,25 +3,177 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My GitHub Pages</title>
+    <title>Simple Calculator</title>
     <style>
+      :root {
+        color-scheme: dark;
+        --bg-1: #0f172a;
+        --bg-2: #1e293b;
+        --panel: #111827;
+        --key: #1f2937;
+        --key-hover: #374151;
+        --key-text: #f9fafb;
+        --accent: #2563eb;
+        --accent-hover: #3b82f6;
+        --function: #374151;
+        --function-hover: #4b5563;
+        --muted: #94a3b8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #f4f4f4;
-        padding: 80px 20px;
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: radial-gradient(circle at top, var(--bg-2), var(--bg-1) 70%);
+        color: var(--key-text);
       }
-      h1 {
-        color: #2563eb;
+
+      .calculator {
+        width: min(100%, 360px);
+        padding: 20px;
+        border-radius: 24px;
+        background: var(--panel);
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.45),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
       }
-      p {
-        color: #555;
+
+      .screen {
+        min-height: 120px;
+        padding: 16px 18px;
+        margin-bottom: 18px;
+        border-radius: 16px;
+        background: #0b1220;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        gap: 6px;
+        overflow: hidden;
+      }
+
+      .expression {
+        min-height: 22px;
+        font-size: 0.95rem;
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+
+      .display {
+        font-size: clamp(2rem, 9vw, 2.75rem);
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: 0.02em;
+        word-break: break-all;
+        text-align: right;
+      }
+
+      .keys {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .key {
+        border: 0;
+        border-radius: 14px;
+        padding: 18px 0;
+        font: inherit;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--key-text);
+        background: var(--key);
+        cursor: pointer;
+        transition:
+          background 120ms ease,
+          transform 80ms ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .key:hover {
+        background: var(--key-hover);
+      }
+
+      .key:active {
+        transform: scale(0.96);
+      }
+
+      .key:focus-visible {
+        outline: 2px solid var(--accent-hover);
+        outline-offset: 2px;
+      }
+
+      .function {
+        background: var(--function);
+        color: #e5e7eb;
+        font-size: 1.05rem;
+      }
+
+      .function:hover {
+        background: var(--function-hover);
+      }
+
+      .operator,
+      .equals {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .operator:hover,
+      .equals:hover {
+        background: var(--accent-hover);
+      }
+
+      .zero {
+        grid-column: span 2;
       }
     </style>
   </head>
   <body>
-    <h1>Hello from GitHub Pages!</h1>
-    <p>My first website deployed using GitHub Pages.</p>
-    <p>Deployment successful!</p>
+    <main class="calculator" aria-label="Simple calculator">
+      <div class="screen">
+        <div class="expression" id="expression">&nbsp;</div>
+        <div class="display" id="display" aria-live="polite">0</div>
+      </div>
+
+      <div class="keys">
+        <button class="key function" data-action="clear" aria-label="Clear">AC</button>
+        <button class="key function" data-action="sign" aria-label="Toggle sign">±</button>
+        <button class="key function" data-action="percent" aria-label="Percent">%</button>
+        <button class="key operator" data-action="operator" data-value="divide" aria-label="Divide">÷</button>
+
+        <button class="key" data-value="7">7</button>
+        <button class="key" data-value="8">8</button>
+        <button class="key" data-value="9">9</button>
+        <button class="key operator" data-action="operator" data-value="multiply" aria-label="Multiply">×</button>
+
+        <button class="key" data-value="4">4</button>
+        <button class="key" data-value="5">5</button>
+        <button class="key" data-value="6">6</button>
+        <button class="key operator" data-action="operator" data-value="subtract" aria-label="Subtract">−</button>
+
+        <button class="key" data-value="1">1</button>
+        <button class="key" data-value="2">2</button>
+        <button class="key" data-value="3">3</button>
+        <button class="key operator" data-action="operator" data-value="add" aria-label="Add">+</button>
+
+        <button class="key zero" data-value="0">0</button>
+        <button class="key" data-action="decimal" aria-label="Decimal point">.</button>
+        <button class="key equals" data-action="equals" aria-label="Equals">=</button>
+      </div>
+    </main>
+
+    <script src="src/calculator.js"></script>
+    <script src="src/calculator-ui.js"></script>
   </body>
 </html>
